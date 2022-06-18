@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.AddressableLED;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -51,7 +49,7 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    RobotContainer.ledStrip.turnAllOff();
+    RobotContainer.ledStrip.turnAllOff(); // Shut all lights off when the robot is disabled
   }
 
   @Override
@@ -82,13 +80,13 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    RobotContainer.ledStrip.start();
+    RobotContainer.ledStrip.start(); // Start constantly updating LEDs to the data the strip was last given
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    RobotContainer.ledStrip.chaseTest(0, 255, 75);
+    RobotContainer.ledStrip.chaseTest(0, 255, 75); // Call the chaseTest method, giving it our team color
   }
 
   @Override

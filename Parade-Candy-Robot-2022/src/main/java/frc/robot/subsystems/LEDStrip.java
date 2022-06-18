@@ -12,6 +12,7 @@ public class LEDStrip {
 
     private int chaseIndex = 0;
 
+    // CONSTRUCTOR
     public LEDStrip(int pwmPort, int length) {
         this.ledStrip = new AddressableLED(pwmPort);
         this.ledBuffer = new AddressableLEDBuffer(length);
@@ -19,28 +20,35 @@ public class LEDStrip {
     }
 
     public void start() {
-        ledStrip.start();
+        ledStrip.start(); // Start automatically updating the led strip to whatever data was last given
     }
 
+    /**
+     * Set all lights in the strip to black (off)
+     */
     public void turnAllOff() {
+        // Loop through all individual lights...
         for (int i = 0; i < ledBuffer.getLength(); i++) {
-            ledBuffer.setRGB(i, 0, 0, 0);
+            ledBuffer.setRGB(i, 0, 0, 0); // Turn off by setting all color values to 0 (black)
         }
-        ledStrip.setData(ledBuffer);
+        ledStrip.setData(ledBuffer); // Give the led strip the data from the buffer
     }
 
     public void chaseTest(int r, int g, int b) {
+        // Move chase index up by 1 (from what it was last time this method was called)
         chaseIndex++;
+        // If the index is at the end of the strip, go to the beginning
         if (chaseIndex > ledBuffer.getLength()) {
             chaseIndex = 0;
         }
+        // Loop through all individual lights in the strip...
         for (int i = 0; i < ledBuffer.getLength(); i++) {
             if (i == chaseIndex) {
-                ledBuffer.setRGB(i, r, g, b);
+                ledBuffer.setRGB(i, r, g, b); // If this is the one we want on, turn it on to the color given
             } else {
-                ledBuffer.setRGB(i, 0, 0, 0);
+                ledBuffer.setRGB(i, 0, 0, 0); // Otherwise, turn it off
             }
         }
-        ledStrip.setData(ledBuffer);
+        ledStrip.setData(ledBuffer); // Give the led strip the data from the buffer
     }
 }
