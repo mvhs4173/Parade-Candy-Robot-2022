@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.util.Color;
 
 public class LEDStrip {
     private AddressableLED ledStrip; // Object for the PWM-based LED strip
@@ -38,17 +39,48 @@ public class LEDStrip {
         // Move chase index up by 1 (from what it was last time this method was called)
         chaseIndex++;
         // If the index is at the end of the strip, go to the beginning
-        if (chaseIndex > ledBuffer.getLength()) {
+        if (chaseIndex >= ledBuffer.getLength()) {
             chaseIndex = 0;
         }
-        // Loop through all individual lights in the strip...
+        // Turn on the new light
+        ledBuffer.setRGB(chaseIndex, r, g, b);
+        // Turn off the old light, but it actually works this time
+        if (chaseIndex == 0) { 
+            ledBuffer.setRGB(ledBuffer.getLength() - 1, 0, 0, 0); // If the index is at the beginning, turn off the last light on the strip
+        }
+        else {
+            ledBuffer.setRGB(chaseIndex - 1, 0, 0, 0); // Otherwise, turn off the previous light like normal
+        }
+
+        ledStrip.setData(ledBuffer); // Give the led strip the data from the buffer
+    }
+
+    public void setToPatrioticPattern() {
         for (int i = 0; i < ledBuffer.getLength(); i++) {
-            if (i == chaseIndex) {
-                ledBuffer.setRGB(i, r, g, b); // If this is the one we want on, turn it on to the color given
+            int indexInPattern = (i + 1) % 6;
+            if (indexInPattern == 0) {
+                indexInPattern = 6;
+            }
+            if (indexInPattern == 1 || indexInPattern == 2) {
+                ledBuffer.setRGB(i, 255, 0, 0); // Red
+            } else if (indexInPattern == 3 || indexInPattern == 6) {
+                ledBuffer.setRGB(i, 150, 110, 75); // White
             } else {
-                ledBuffer.setRGB(i, 0, 0, 0); // Otherwise, turn it off
+                ledBuffer.setRGB(i, 0, 75, 255); // Blue
             }
         }
+
+        ledStrip.setData(ledBuffer); // Give the led strip the data from the buffer
+    }
+
+    public void incrementPattern() {
+        Color previousValue = ledBuffer.getLED(ledBuffer.getLength() - 1);
+        for (int i = 0; i < ledBuffer.getLength(); i++) {
+            Color swap = ledBuffer.getLED(i);
+            ledBuffer.setLED(i, previousValue);
+            previousValue = swap;
+        }
+        
         ledStrip.setData(ledBuffer); // Give the led strip the data from the buffer
     }
 }

@@ -81,12 +81,13 @@ public class Robot extends TimedRobot {
     }
 
     RobotContainer.ledStrip.start(); // Start constantly updating LEDs to the data the strip was last given
+    RobotContainer.cmdRunPatrioticPattern.schedule();
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    RobotContainer.ledStrip.chaseTest(0, 255, 75); // Call the chaseTest method, giving it our team color
+    //RobotContainer.ledStrip.chaseTest(0, 255, 75); // Call the chaseTest method, giving it our team color
   }
 
   @Override
