@@ -86,9 +86,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
-    //RobotContainer.ledStrip.chaseTest(0, 255, 75); // Call the chaseTest method, giving it our team color
-  }
+  public void teleopPeriodic() {}
 
   @Override
   public void testInit() {
@@ -98,7 +96,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    RobotContainer.ledStrip.chaseTest(0, 255, 75); // Call the chaseTest method, giving it our team color
+  }
 
   /** This function is called once when the robot is first started up. */
   @Override

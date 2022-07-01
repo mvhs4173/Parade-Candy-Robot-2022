@@ -55,6 +55,14 @@ public class LEDStrip {
         ledStrip.setData(ledBuffer); // Give the led strip the data from the buffer
     }
 
+    public void setAllToColor(int r, int g, int b) {
+        for (int i = 0; i < ledBuffer.getLength(); i++) {
+            ledBuffer.setRGB(i, r, g, b);
+        }
+
+        ledStrip.setData(ledBuffer);
+    }
+
     public void setToPatrioticPattern() {
         for (int i = 0; i < ledBuffer.getLength(); i++) {
             int indexInPattern = (i + 1) % 6;

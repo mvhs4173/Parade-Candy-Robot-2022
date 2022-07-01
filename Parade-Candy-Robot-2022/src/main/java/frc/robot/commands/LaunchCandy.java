@@ -13,12 +13,13 @@ public class LaunchCandy extends CommandBase {
 
   CandyCannon cannon;
   CommandBase cmdFlashLEDs;
+  CommandBase cmdRunPattern;
 
   boolean hasLaunched;
   Timer timer = new Timer();
   
   /** Creates a new LaunchCandy. */
-  public LaunchCandy(CandyCannon cannon, CommandBase flashLEDCommand) {
+  public LaunchCandy(CandyCannon cannon, CommandBase flashLEDCommand, CommandBase runPatternCommand) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.cannon = cannon;
     cmdFlashLEDs = flashLEDCommand;
@@ -48,6 +49,7 @@ public class LaunchCandy extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     cannon.setIsExtended(false);
+    cmdRunPattern.schedule();
     timer.stop();
   }
 

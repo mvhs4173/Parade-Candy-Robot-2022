@@ -50,8 +50,8 @@ public class RobotContainer {
 
   // COMMANDS
   public static RunLEDPatrioticPattern cmdRunLEDPatrioticPattern = new RunLEDPatrioticPattern(ledStrip);
-  public static FlashLEDLaunchPattern cmdFlashLEDLaunchPattern = new FlashLEDLaunchPattern();
-  public static LaunchCandy cmdLaunchCandy = new LaunchCandy(cannon, cmdFlashLEDLaunchPattern);
+  public static FlashLEDLaunchPattern cmdFlashLEDLaunchPattern = new FlashLEDLaunchPattern(ledStrip);
+  public static LaunchCandy cmdLaunchCandy = new LaunchCandy(cannon, cmdFlashLEDLaunchPattern, cmdRunLEDPatrioticPattern);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
