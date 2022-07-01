@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LEDStrip;
 
-public class RunPatrioticPattern extends CommandBase {
+public class RunLEDPatrioticPattern extends CommandBase {
   LEDStrip ledStrip;
   Timer timer = new Timer();
 
   double delay = 0.1; // (seconds) How long to wait between each increment of the pattern
 
   /** Creates a new RunPatrioticPattern. */
-  public RunPatrioticPattern(LEDStrip ledStrip) {
+  public RunLEDPatrioticPattern(LEDStrip ledStrip) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.ledStrip = ledStrip;
   }

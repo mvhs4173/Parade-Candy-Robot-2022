@@ -9,16 +9,29 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 /** Add your docs here. */
 public class CandyCannon {
+    private final Value EXTENDED_VALUE = Value.kForward;
+
     private DoubleSolenoid doubleSolenoid;
 
     public CandyCannon(DoubleSolenoid doubleSolenoid) {
         this.doubleSolenoid = doubleSolenoid;
     }
 
+    public boolean getIsExtended() {
+        return doubleSolenoid.get() == EXTENDED_VALUE;
+    }
+
     public void setIsExtended(boolean shouldBeExtended) {
-        Value value = Value.kReverse;
-        if (shouldBeExtended)
-            value = Value.kForward;
+        Value value;
+        if (shouldBeExtended) {
+            value = EXTENDED_VALUE;
+        } else {
+            if (EXTENDED_VALUE == Value.kForward) {
+                value = Value.kReverse;
+            } else {
+                value = Value.kForward;
+            }
+        }
 
         doubleSolenoid.set(value);
     }

@@ -5,10 +5,16 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PneumaticsControlModule;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.RunPatrioticPattern;
+import frc.robot.commands.FlashLEDLaunchPattern;
+import frc.robot.commands.LaunchCandy;
+import frc.robot.commands.RunLEDPatrioticPattern;
+import frc.robot.subsystems.CandyCannon;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LEDStrip;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,12 +39,19 @@ public class RobotContainer {
   public static JoystickButton launchButton = new JoystickButton(driverJoy, RobotMap.launchButton);
 
   // MISCELLANEOUS
+  public static PneumaticsControlModule pcm = new PneumaticsControlModule(RobotMap.pcm);
   public static LEDStrip ledStrip = new LEDStrip(RobotMap.ledStrip, 60);
 
-  // MOTORS
+  // MOTORS and SOLENOIDS
+  public static DoubleSolenoid cannonDoubleSolenoid = new DoubleSolenoid(RobotMap.pcm, PneumaticsModuleType.CTREPCM, RobotMap.cannonForwardChannel, RobotMap.cannonReverseChannel);
+
+  // SUBSYSTEMS
+  public static CandyCannon cannon = new CandyCannon(cannonDoubleSolenoid);
 
   // COMMANDS
-  public static RunPatrioticPattern cmdRunPatrioticPattern = new RunPatrioticPattern(ledStrip);
+  public static RunLEDPatrioticPattern cmdRunLEDPatrioticPattern = new RunLEDPatrioticPattern(ledStrip);
+  public static FlashLEDLaunchPattern cmdFlashLEDLaunchPattern = new FlashLEDLaunchPattern();
+  public static LaunchCandy cmdLaunchCandy = new LaunchCandy(cannon, cmdFlashLEDLaunchPattern);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -52,7 +65,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    launchButton.whenPressed(cmdLaunchCandy);
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
