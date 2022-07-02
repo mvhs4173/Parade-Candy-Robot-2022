@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
-    RobotContainer.ledStrip.chaseTest(6, 126, 152); // Call the chaseTest method, giving it our team color
+    RobotContainer.ledStrip.chaseTrail(3, 6, 126, 152); // Call the chaseTest method, giving it our team color
   }
 
   /** This function is called once when the robot is first started up. */

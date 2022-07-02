@@ -37,11 +37,7 @@ public class LEDStrip {
 
     public void chaseTest(int r, int g, int b) {
         // Move chase index up by 1 (from what it was last time this method was called)
-        chaseIndex++;
-        // If the index is at the end of the strip, go to the beginning
-        if (chaseIndex >= ledBuffer.getLength()) {
-            chaseIndex = 0;
-        }
+        chaseIndex = loopLEDIndex(chaseIndex + 1);
         // Turn on the new light
         ledBuffer.setRGB(chaseIndex, r, g, b);
         // Turn off the old light, but it actually works this time
@@ -81,6 +77,20 @@ public class LEDStrip {
         ledStrip.setData(ledBuffer); // Give the led strip the data from the buffer
     }
 
+    public void chaseTrail(int trailLength, int r, int g, int b) {
+        // Move chase index up by 1 (from what it was last time this method was called)
+        chaseIndex = loopLEDIndex(chaseIndex + 1);
+
+        for (int n = 1; n <= trailLength; n++) {
+            int i = loopLEDIndex(chaseIndex - (n - 1));
+            double ratioToRemove = ((n-1) / (double) trailLength);
+            ledBuffer.setRGB(i, (int) (r - r*ratioToRemove), (int) (g - g*ratioToRemove), (int) (b - b*ratioToRemove));
+        }
+        ledBuffer.setRGB(loopLEDIndex(chaseIndex - trailLength), 0, 0, 0);
+
+        ledStrip.setData(ledBuffer);
+    }
+
     public void incrementPattern() {
         Color previousValue = ledBuffer.getLED(ledBuffer.getLength() - 1);
         for (int i = 0; i < ledBuffer.getLength(); i++) {
@@ -90,5 +100,15 @@ public class LEDStrip {
         }
         
         ledStrip.setData(ledBuffer); // Give the led strip the data from the buffer
+    }
+
+    
+    private int loopLEDIndex(int i) {
+        if (i >= ledBuffer.getLength()) {
+            return loopLEDIndex(i - ledBuffer.getLength());
+        } else if (i < 0) {
+            return loopLEDIndex(i + ledBuffer.getLength());
+        }
+        return i;
     }
 }
