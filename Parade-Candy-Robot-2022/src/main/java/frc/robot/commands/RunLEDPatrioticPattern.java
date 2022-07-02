@@ -12,7 +12,7 @@ public class RunLEDPatrioticPattern extends CommandBase {
   LEDStrip ledStrip;
   Timer timer = new Timer();
 
-  double delay = 0.1; // (seconds) How long to wait between each increment of the pattern
+  final double DELAY = 0.1; // (seconds) How long to wait between each increment of the pattern
 
   /** Creates a new RunPatrioticPattern. */
   public RunLEDPatrioticPattern(LEDStrip ledStrip) {
@@ -31,7 +31,7 @@ public class RunLEDPatrioticPattern extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (timer.get() >= delay) {
+    if (timer.get() >= DELAY) {
       ledStrip.incrementPattern();
       timer.reset();
     }

@@ -42,7 +42,7 @@ public class FlashLEDLaunchPattern extends CommandBase {
   @Override
   public void execute() {
     if (timer.get() >= Constants.launchDelay / TARGET_FLASHES) {
-      ledStrip.setAllToColor(255, 255, 0);
+      ledStrip.setAllToColor(6, 126, 152);
       flashCount++;
       timer.reset();
       onTimer.reset();

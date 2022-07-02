@@ -21,7 +21,7 @@ public class RobotMap {
     public static int ledStrip = 0;
 
     // PNEUMATICS
-    public static int pcm = 0;
-    public static int cannonForwardChannel = 1,
-                      cannonReverseChannel = 2;
+    public static int pcm = 1;
+    public static int cannonForwardChannel = 0,
+                      cannonReverseChannel = 1;
 }

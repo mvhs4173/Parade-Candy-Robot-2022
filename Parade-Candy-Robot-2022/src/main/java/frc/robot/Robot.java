@@ -88,6 +88,7 @@ public class Robot extends TimedRobot {
     }
 
     RobotContainer.ledStrip.start(); // Start constantly updating LEDs to the data the strip was last given
+    RobotContainer.cannon.setIsExtended(false);
     RobotContainer.cmdRunLEDPatrioticPattern.schedule();
   }
 
@@ -111,7 +112,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
-    RobotContainer.ledStrip.chaseTest(0, 255, 75); // Call the chaseTest method, giving it our team color
+    RobotContainer.ledStrip.chaseTest(6, 126, 152); // Call the chaseTest method, giving it our team color
   }
 
   /** This function is called once when the robot is first started up. */

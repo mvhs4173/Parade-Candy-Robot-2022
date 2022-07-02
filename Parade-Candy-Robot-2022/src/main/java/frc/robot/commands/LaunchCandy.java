@@ -7,7 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.CandyCannon;
+import frc.robot.subsystems.LEDStrip;
 
 public class LaunchCandy extends CommandBase {
 
@@ -23,11 +25,13 @@ public class LaunchCandy extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     this.cannon = cannon;
     cmdFlashLEDs = flashLEDCommand;
+    cmdRunPattern = runPatternCommand;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    cmdRunPattern.cancel();
     cmdFlashLEDs.schedule();
     timer.reset();
     timer.start();
@@ -37,11 +41,18 @@ public class LaunchCandy extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!hasLaunched && cannon.getIsExtended()) {
-      cannon.setIsExtended(false);
-    }
-    if (timer.get() >= Constants.launchDelay) {
-      cannon.setIsExtended(true);
+    if (!hasLaunched) {
+      if (cannon.getIsExtended()) {
+        cannon.setIsExtended(false);
+      }
+      if (timer.get() >= Constants.launchDelay) {
+        cannon.setIsExtended(true);
+        hasLaunched = true;
+        timer.reset();
+        cmdFlashLEDs.cancel();
+      }
+    } else {
+      RobotContainer.ledStrip.chaseTest(6, 126, 152);
     }
   }
 
@@ -56,6 +67,6 @@ public class LaunchCandy extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return hasLaunched;
+    return hasLaunched && timer.get() >= Constants.launchDelay;
   }
 }
