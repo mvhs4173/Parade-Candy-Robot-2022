@@ -45,7 +45,7 @@ public class RobotContainer {
 
   // MISCELLANEOUS
   public static PneumaticsControlModule pcm = new PneumaticsControlModule(RobotMap.pcm);
-  public static LEDStrip ledStrip = new LEDStrip(RobotMap.ledStrip, 60);
+  public static LEDStrip ledStrip = new LEDStrip(RobotMap.ledStrip, 400);
 
   // MOTOR CONTROLLERS
   public static TalonSRXMotorController driveMotorFrontRight = new TalonSRXMotorController(RobotMap.driveMotorFrontRight),
