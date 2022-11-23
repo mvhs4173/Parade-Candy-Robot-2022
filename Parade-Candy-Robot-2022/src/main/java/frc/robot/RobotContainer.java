@@ -7,7 +7,9 @@ package frc.robot;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.PneumaticsControlModule;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -44,7 +46,8 @@ public class RobotContainer {
   public static JoystickButton launchButton = new JoystickButton(driverJoy, RobotMap.launchButton);
 
   // MISCELLANEOUS
-  public static PneumaticsControlModule pcm = new PneumaticsControlModule(RobotMap.pcm);
+  public static PneumaticHub pHub = new PneumaticHub(RobotMap.pcm);
+  public static Compressor phCompressor = new Compressor(RobotMap.pcm, PneumaticsModuleType.REVPH);
   public static LEDStrip ledStrip = new LEDStrip(RobotMap.ledStrip, 400);
 
   // MOTOR CONTROLLERS
@@ -58,7 +61,7 @@ public class RobotContainer {
                                         swivelMotorBackRight = new TalonSRXMotorController(RobotMap.swivelMotorBackRight);
 
   // SOLENOIDS
-  public static DoubleSolenoid cannonDoubleSolenoid = new DoubleSolenoid(RobotMap.pcm, PneumaticsModuleType.CTREPCM, RobotMap.cannonForwardChannel, RobotMap.cannonReverseChannel);
+  public static DoubleSolenoid cannonDoubleSolenoid = new DoubleSolenoid(RobotMap.pcm, PneumaticsModuleType.REVPH, RobotMap.cannonForwardChannel, RobotMap.cannonReverseChannel);
 
   // SENSORS //
   public static AHRS navX = new AHRS(SPI.Port.kMXP); // Gets NavX device installed into SPI port (integrated onto RoboRio). Other options would be to use USB or I2C
