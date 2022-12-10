@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.drive.Vector2d;
 public class SwerveDrive {
 
     public static final double WHEEL_DIAMETER = 4 / 12.0; // (feet)
-    public static final double MAX_DRIVE_PERCENT_SPEED = .5, // (percent) Max speed for driving when using percent speed
+    public static final double MAX_DRIVE_PERCENT_SPEED = .37, // (percent) Max speed for driving when using percent speed
                                MAX_RPS = .225, // (rotations/sec) Max rotation speed when using percent speed to rotate drive train
                                MAX_DRIVE_ROTATION_EXPONENT = .8, // The power to raise the chassis rotation speed to with lookVector driving at full drive speed
                                MIN_DRIVE_ROTATION_EXPONENT = .5; // The power to reaise the chassis rotation speed to with lookVector driving while stationary
@@ -25,7 +25,7 @@ public class SwerveDrive {
     public static final double SWIVEL_SPEED = 1, // (percent) Max speed for swiveling module to target angle
                                ALLOWED_ERROR = 3.5, // (degrees)
                                ANGLE_FOR_MAX_SWIVEL_SPEED = 90, // The angle (difference between current heading and desired setpoint) at which the module should swivel at max speed (SWIVEL_SPEED)
-                               SWIVEL_SPEED_EXPONENT = .7; // The power to raise the module swivel speed to, helping the module reach its setpoint smoothly
+                               SWIVEL_SPEED_EXPONENT = .5; // The power to raise the module swivel speed to, helping the module reach its setpoint smoothly
 
     private SwerveDriveKinematics kinematics;
 
