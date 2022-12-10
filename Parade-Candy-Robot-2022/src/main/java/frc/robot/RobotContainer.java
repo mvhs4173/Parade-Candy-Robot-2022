@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.awt.Color;
+
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AddressableLED;
@@ -15,7 +17,7 @@ import edu.wpi.first.wpilibj.PneumaticsControlModule;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.FlashLEDLaunchPattern;
+import frc.robot.commands.LEDFlash;
 import frc.robot.commands.LaunchCandy;
 import frc.robot.commands.RunLEDPatrioticPattern;
 import frc.robot.subsystems.CandyCannon;
@@ -35,6 +37,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -48,7 +51,7 @@ public class RobotContainer {
   // MISCELLANEOUS
   public static PneumaticHub pHub = new PneumaticHub(RobotMap.pcm);
   public static Compressor phCompressor = new Compressor(RobotMap.pcm, PneumaticsModuleType.REVPH);
-  public static LEDStrip ledStrip = new LEDStrip(RobotMap.ledStrip, 400);
+  public static LEDStrip ledStrip = new LEDStrip(RobotMap.ledStrip, 300);
 
   // MOTOR CONTROLLERS
   public static TalonSRXMotorController driveMotorFrontRight = new TalonSRXMotorController(RobotMap.driveMotorFrontRight),
@@ -77,8 +80,9 @@ public class RobotContainer {
 
   // COMMANDS
   public static RunLEDPatrioticPattern cmdRunLEDPatrioticPattern = new RunLEDPatrioticPattern(ledStrip);
-  public static FlashLEDLaunchPattern cmdFlashLEDLaunchPattern = new FlashLEDLaunchPattern(ledStrip);
-  public static LaunchCandy cmdLaunchCandy = new LaunchCandy(cannon, cmdFlashLEDLaunchPattern, cmdRunLEDPatrioticPattern);
+  //public static FlashLEDLaunchPattern cmdFlashLEDLaunchPattern = new FlashLEDLaunchPattern(ledStrip);
+  public static LEDFlash ledFlash = new LEDFlash(ledStrip, new Color(255,0,0), new Color(0,255,0), 1.0);
+  public static LaunchCandy cmdLaunchCandy = new LaunchCandy(cannon, ledFlash, cmdRunLEDPatrioticPattern);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

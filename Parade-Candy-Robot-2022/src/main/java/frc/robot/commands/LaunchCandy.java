@@ -52,7 +52,7 @@ public class LaunchCandy extends CommandBase {
         cmdFlashLEDs.cancel();
       }
     } else {
-      RobotContainer.ledStrip.chaseTrail(20, 6, 126, 152);
+      // RobotContainer.ledStrip.chaseTrail(10, 0, 255, 0);
     }
   }
 

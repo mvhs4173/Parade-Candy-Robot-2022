@@ -62,12 +62,16 @@ public class LEDStrip {
     
     public void setToChristmasColorPattern() {
         for (int i = 0; i < ledBuffer.getLength(); i++) {
-            int indexInPattern = (i + 1) % 6;
+            int indexInPattern = (i + 1) % 10;
             
-            if (indexInPattern == 0 || indexInPattern == 1 || indexInPattern == 2) {
+            if (indexInPattern >= 0 && indexInPattern <= 3) {
                 ledBuffer.setRGB(i, 255, 0, 0); // Red
-            } else if (indexInPattern == 4 || indexInPattern == 5 || indexInPattern == 3)  {
+            } else if (indexInPattern == 4){
+                ledBuffer.setRGB(i, 0, 0, 0); // nothing
+            } else if (indexInPattern >= 5 && indexInPattern <= 8 ){
                 ledBuffer.setRGB(i, 0, 255, 0); // Green
+            } else if (indexInPattern == 9){
+                ledBuffer.setRGB(i, 0, 0, 0); // nothing
             }
         }
 
