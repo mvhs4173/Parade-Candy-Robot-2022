@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.Vector2d;
@@ -25,7 +26,10 @@ public class Robot extends TimedRobot {
   private XboxController joy = RobotContainer.driverJoy;
 
   private SwerveDrive swerveDrive = RobotContainer.swerveDrive;
-
+  public static final String maxMotorSpeedPercentKey = "MaxMotorSpeedPercent";
+  public static final String swivelSpeedExponentKey = "SwivelSpeedExponent";
+  SwerveDrive.MAX_DRIVE_PERCENT_SPEED = 0.37;
+  private static double SWIVEL_SPEED_EXPONENT = .5;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -34,6 +38,12 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    if (!Preferences.containsKey(maxMotorSpeedPercentKey)) {
+      Preferences.setDouble(maxMotorSpeedPercentKey, MAX_DRIVE_PERCENT_SPEED);
+    }
+    if (!Preferences.containsKey(swivelSpeedExponentKey)) {
+      Preferences.setDouble(swivelSpeedExponentKey, SWIVEL_SPEED_EXPONENT);
+    }
     m_robotContainer = new RobotContainer();
   }
 
